@@ -1,7 +1,18 @@
+import tweepy
 from textgenrnn import textgenrnn
+import io
+from contextlib import redirect_stdout
 
-# textgen = textgenrnn('C:\\Users\\bahariri\\AppData\\Local\\Continuum\\anaconda3\\Lib\\site-packages\\textgenrnn_weights.hdf5')
-# textgen.generate(10, temperature=.69)
+auth = tweepy.OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
+auth.set_access_token(os.environ['ACCESS_KEY'], os.environ['ACCESS_SECRET'])
+api = tweepy.API(auth)
 
-textgen_2 = textgenrnn('C:\\Users\\bahariri\\Desktop\\workspace\\twump\\tweet-generator\\textgenrnn_weights.hdf5')
-textgen_2.generate_samples()
+buf = io.StringIO()
+with redirect_stdout(buf):
+	textgen.generate(1, temperature=.69, max_gen_length=140)
+
+textgen = textgenrnn(weights_path='realDonaldTrump_twitter_weights.hdf5')
+tweet = buf.getvalue()
+if tweet.rfind(".") != -1:
+	tweet = tweet[:tweet.rfind(".") + 1]
+api.update_status(status = tweet)
