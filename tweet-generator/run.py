@@ -1,6 +1,7 @@
 import tweepy
-from textgenrnn import textgenrnn
 import io
+import os
+from textgenrnn import textgenrnn
 from contextlib import redirect_stdout
 
 auth = tweepy.OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
