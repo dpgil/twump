@@ -9,10 +9,10 @@ auth.set_access_token(os.environ['ACCESS_KEY'], os.environ['ACCESS_SECRET'])
 api = tweepy.API(auth)
 while True:
 	buf = io.StringIO()
+	textgen = textgenrnn(weights_path='realDonaldTrump_twitter_weights.hdf5')
 	with redirect_stdout(buf):
 		textgen.generate(1, temperature=.69, max_gen_length=140)
 
-	textgen = textgenrnn(weights_path='realDonaldTrump_twitter_weights.hdf5')
 	tweet = buf.getvalue()
 	if tweet.rfind(".") != -1:
 		tweet = tweet[:tweet.rfind(".") + 1]
