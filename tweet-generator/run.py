@@ -14,7 +14,7 @@ while True:
 	buf = io.StringIO()
 	textgen = textgenrnn(weights_path='tweet-generator/realDonaldTrump_twitter_weights.hdf5')
 	with redirect_stdout(buf):
-		textgen.generate(1, temperature=.69, max_gen_length=MAX_TWEET_LENGTH)
+		textgen.generate(1, temperature=(.69 * .69), max_gen_length=MAX_TWEET_LENGTH)
 
 	tweet = buf.getvalue()
 	# Trim to last sentence.
